@@ -1,0 +1,41 @@
+.idea/
+
+.gradle
+
+gradle
+
+# Pasta de build principal do Gradle
+build/
+
+serverest-restassured.iml
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Avoid ignore Gradle wrapper properties
+!gradle-wrapper.properties
+
+# Cache of project
+.gradletasknamecache
+
+# Logs de erro do Java
+*.log
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Pasta de build do Maven (caso reste algum rastro da migração)
+target/
+
+# Saída de compilação da IDE
+out/
+
+# Resultados brutos do Allure
+allure-results/
+
+# Relatório final gerado
+allure-report/
+bin/
