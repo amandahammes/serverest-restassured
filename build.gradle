@@ -23,9 +23,9 @@ dependencies {
     implementation platform("io.qameta.allure:allure-bom:${allureVersion}")
 
     // Rest-Assured e Hamcrest
-    testImplementation 'io.rest-assured:rest-assured:5.4.0'
-    testImplementation 'org.hamcrest:hamcrest:3.0'
-    testImplementation 'org.testng:testng:7.9.0'
+    implementation 'io.rest-assured:rest-assured:5.4.0'
+    implementation 'org.hamcrest:hamcrest:3.0'
+    implementation 'org.testng:testng:7.9.0'
 
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.20.0'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.21.0'
@@ -36,9 +36,9 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.42'
 
     // Allure & AspectJ
-    testImplementation 'io.qameta.allure:allure-rest-assured'
-    testImplementation 'io.qameta.allure:allure-testng' // Alterado de allure-junit5 para allure-testng
-    testImplementation "org.aspectj:aspectjweaver:${aspectjVersion}"
+    implementation 'io.qameta.allure:allure-rest-assured'
+    implementation 'io.qameta.allure:allure-testng'
+    runtimeOnly("org.aspectj:aspectjweaver:1.9.24")
 
 }
 

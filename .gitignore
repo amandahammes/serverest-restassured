@@ -2,8 +2,6 @@
 
 .gradle
 
-gradle
-
 # Pasta de build principal do Gradle
 build/
 
