@@ -1,5 +1,6 @@
 package br.com.serverest.test;
 
+import br.com.serverest.dataFactory.DataFactory;
 import br.com.serverest.dto.LoginDTO;
 import br.com.serverest.dto.UsuarioDTO;
 import br.com.serverest.service.UsuarioService;
@@ -14,6 +15,7 @@ import static org.hamcrest.Matchers.equalTo;
 @Feature("Fluxos de usuário e login")
 public class LoginTest extends BaseTest {
 
+    private DataFactory dataFactory = new DataFactory();
     private UsuarioService usuarioService = new UsuarioService();
 
     @Test
@@ -39,7 +41,28 @@ public class LoginTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Description("CT-002: Realizar login com e-mail inválido.")
     public void deveFalharAoRealizarLoginComEmailInvalido(){
-        LoginDTO informacoesLogin = new LoginDTO("email@email.com", "password");
+        UsuarioDTO usuario = usuarioService.criarUsuario();
+        LoginDTO informacoesLogin = new LoginDTO(dataFactory.criarEmailFaker(), usuario.getPassword());
+
+        given()
+                .spec(publicSpec())
+                .body(informacoesLogin)
+                .when()
+                .post("/login")
+                .then()
+                .log().ifValidationFails()
+                .spec(responseSpecCode401())
+                .body("message", equalTo("Email e/ou senha inválidos"));
+    }
+
+    @Test
+    @Story("Login com senha inválida.")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("CT-003: Realizar login com senha inválida.")
+    public void deveFalharAoRealizarLoginComSenhaInvalida(){
+        UsuarioDTO usuario = usuarioService.criarUsuario();
+        LoginDTO informacoesLogin = new LoginDTO(usuario.getEmail(), dataFactory.criarSenhaFaker());
+
         given()
                 .spec(publicSpec())
                 .body(informacoesLogin)

@@ -15,4 +15,12 @@ public class DataFactory {
                 .administrador(String.valueOf(usuarioEhAdmin))
                 .build();
     }
+
+    public String criarEmailFaker(){
+        return faker.internet().emailAddress();
+    }
+
+    public String criarSenhaFaker(){
+        return faker.internet().password(8,20, true, true);
+    }
 }
