@@ -8,6 +8,7 @@ import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 
 @Epic("Acessos e-commerce")
 @Feature("Fluxos de usuário e login")
@@ -33,5 +34,21 @@ public class LoginTest extends BaseTest {
             .spec(responseSpecCode200());
     }
 
+    @Test
+    @Story("Login com e-mail inválido.")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("CT-002: Realizar login com e-mail inválido.")
+    public void deveFalharAoRealizarLoginComEmailInvalido(){
+        LoginDTO informacoesLogin = new LoginDTO("email@email.com", "password");
+        given()
+                .spec(publicSpec())
+                .body(informacoesLogin)
+                .when()
+                .post("/login")
+                .then()
+                .log().ifValidationFails()
+                .spec(responseSpecCode401())
+                .body("message", equalTo("Email e/ou senha inválidos"));
+    }
 
 }

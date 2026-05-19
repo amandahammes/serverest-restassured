@@ -1,6 +1,8 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.11.2'
 }
+
 
 group = 'com.serverest'
 version = '1.0'
@@ -10,7 +12,7 @@ repositories {
 }
 
 def allureVersion = "2.25.0"
-def aspectjVersion = "1.9.21"
+def aspectjVersion = "1.9.24"
 
 java {
     toolchain {
@@ -19,31 +21,33 @@ java {
 }
 
 dependencies {
-    // BOM do Allure para gerenciar versões das dependências do Allure
+    //Allure BOM
     implementation platform("io.qameta.allure:allure-bom:${allureVersion}")
 
-    // Rest-Assured e Hamcrest
-    implementation 'io.rest-assured:rest-assured:5.4.0'
-    implementation 'org.hamcrest:hamcrest:3.0'
-    implementation 'org.testng:testng:7.9.0'
+    //Test stack
+    testImplementation 'io.rest-assured:rest-assured:5.4.0'
+    testImplementation 'org.testng:testng:7.9.0'
+    testImplementation 'org.hamcrest:hamcrest:3.0'
 
+    //Allure & AspectJ
+    implementation 'io.qameta.allure:allure-rest-assured'
+    implementation 'io.qameta.allure:allure-testng'
+
+    //Jackson
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.20.0'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.21.0'
 
-    // Utilitários
+    //Utilitários
     implementation 'com.github.javafaker:javafaker:1.0.2'
 
-    //lombok
+    //Lombok
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
     testCompileOnly 'org.projectlombok:lombok:1.18.30'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 
-
-    // Allure & AspectJ
-    implementation 'io.qameta.allure:allure-rest-assured'
-    implementation 'io.qameta.allure:allure-testng'
-    runtimeOnly("org.aspectj:aspectjweaver:1.9.24")
+    //AspectJS
+    runtimeOnly("org.aspectj:aspectjweaver:${aspectjVersion}")
 
 }
 
@@ -51,9 +55,18 @@ test {
     useTestNG()
 
     doFirst {
-        def aspectjweaver = configurations.testRuntimeClasspath.find { it.name.contains("aspectjweaver") }
+        def aspectjweaver = configurations.testRuntimeClasspath.find {
+            it.name.contains("aspectjweaver")
+        }
         if (aspectjweaver) {
             jvmArgs "-javaagent:${aspectjweaver.absolutePath}"
         }
+    }
+}
+
+allure {
+    version = allureVersion
+    useTestNG {
+        version = allureVersion
     }
 }

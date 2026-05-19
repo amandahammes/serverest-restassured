@@ -71,10 +71,7 @@ Este projeto utiliza a stack de automação Java com as seguintes tecnologias:
     - Hamcrest: Biblioteca de matchers que permite criar regras de verificação (assertions) mais legíveis.
     - Jackson Databind: Responsável pela serialização e desserialização de objetos Java para JSON e vice-versa. 
     - Jackson Datatype: Módulo complementar que permite ao Jackson serializar e desserializar tipos modernos do Java, como datas (LocalDate) e horários.
-    - Allure: cria arquivos .txt e .json com os dados sobre os testes rodados.
-
-
------ VERIFICAR COMANDO... Comando para ver Relatório em gráficos: & "C:\allure-2.38.1\allure-2.38.1\bin\allure.bat" open allure-report
+    - Allure: framework de relatórios que gera dados dos testes e fornece uma interface visual interativa com steps, logs, requisições e respostas das APIs.
 
 ## Ambiente
 
@@ -82,9 +79,19 @@ URL Swagger: https://serverest.dev/?lang=pt-BR# <br>
 
 ## Rodar testes na sua máquina
 
+./gradlew test
+
+## Allure Reports
+
+Para rodar teste e abrir relatório em html: `./gradlew test allureServe`
+Para visualizar o relatório já gerado (sem reexecutar os testes): `./gradlew allureServe`
+Toda vez que rodar o `./gradle test`, os dados dos cenários irão para a pasta *build/allure-results* em formato json
+
 ### Pré requisitos
 
-xyz
+- Java 21 instalado
+- Gradle Wrapper (já incluso no projeto)
+- Git (opcional, para clonar o repositório)
 
 1. **Clonar o projeto:**
 

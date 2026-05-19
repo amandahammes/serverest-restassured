@@ -45,4 +45,11 @@ public class BaseTest {
                 .build();
     }
 
+    protected ResponseSpecification responseSpecCode401() {
+        return new ResponseSpecBuilder()
+                .expectStatusCode(401)
+                .expectContentType(ContentType.JSON)
+                .build();
+    }
+
 }
