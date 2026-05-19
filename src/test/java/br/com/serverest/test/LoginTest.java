@@ -32,4 +32,6 @@ public class LoginTest extends BaseTest {
             .log().ifValidationFails()
             .spec(responseSpecCode200());
     }
+
+
 }

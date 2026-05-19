@@ -39,4 +39,10 @@ public class BaseTest {
                 .build();
     }
 
+    protected ResponseSpecification responseSpecCode201() {
+        return new ResponseSpecBuilder()
+                .expectStatusCode(201)
+                .build();
+    }
+
 }
